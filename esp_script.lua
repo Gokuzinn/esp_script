@@ -114,6 +114,7 @@ local function createOnOffGui()
             nameTag.Adornee = player.Character.HumanoidRootPart
             nameTag.Size = UDim2.new(0, 100, 0, 50)
             nameTag.StudsOffset = Vector3.new(0, 3, 0)
+            nameTag.AlwaysOnTop = true
 
             local label = Instance.new("TextLabel")
             label.Size = UDim2.new(1, 0, 1, 0)
