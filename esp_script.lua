@@ -98,9 +98,6 @@ local function createOnOffGui()
     NewScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
     local isOn = false
-    local highlightFolder = Instance.new("Folder")
-    highlightFolder.Name = "ESPHighlights"
-    highlightFolder.Parent = game.Workspace
     local espRunning = false
 
     local function addHighlight(player)
@@ -112,6 +109,21 @@ local function createOnOffGui()
             highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
             highlight.Name = "PlayerESPHighlight"
             highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+            
+            local nameTag = Instance.new("BillboardGui")
+            nameTag.Adornee = player.Character.HumanoidRootPart
+            nameTag.Size = UDim2.new(0, 100, 0, 50)
+            nameTag.StudsOffset = Vector3.new(0, 3, 0)
+
+            local label = Instance.new("TextLabel")
+            label.Size = UDim2.new(1, 0, 1, 0)
+            label.BackgroundTransparency = 1
+            label.TextColor3 = Color3.fromRGB(255, 255, 255)
+            label.TextScaled = true
+            label.Text = player.DisplayName
+            label.Parent = nameTag
+
+            nameTag.Parent = player.Character.HumanoidRootPart
         end
     end
 
@@ -119,6 +131,13 @@ local function createOnOffGui()
         for _, player in pairs(Players:GetPlayers()) do
             if player.Character and player.Character:FindFirstChild("PlayerESPHighlight") then
                 player.Character.PlayerESPHighlight:Destroy()
+            end
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                for _, v in pairs(player.Character.HumanoidRootPart:GetChildren()) do
+                    if v:IsA("BillboardGui") then
+                        v:Destroy()
+                    end
+                end
             end
         end
     end
